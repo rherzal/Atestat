@@ -1,0 +1,34 @@
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>   
+    <title>Test</title>
+</head>
+
+<body>
+    <form action="save" method="GET">
+        <table style="width: 100%;" class="table">
+                {%for button in Buttons%}
+                    <tr>
+                        <td class="{%if button.value == True%} table-primary {%else%} table-danger {%endif%}">
+                            <input type = "submit" class="btn btn-primary btn-lg" value = {{button.value}} name= "D{{button.id}}" style="width: 25%;">
+                        </td>
+                    </tr>
+                {%endfor%}
+                {%for slider in Sliders%}
+                    <tr>
+                        <td>
+                            <input type = "range" min="0" max="256" class="form-control-range" value = {{slider.value}} name= "A{{slider.id}}" style="width: 25%;"> 
+                        </td>
+                    </tr>
+                {%endfor%}
+
+                    <tr>
+                        <td>
+                            <input type="submit" class="btn btn-primary btn-lg" value = "Analog Submit" name = "Analog_Submit">
+                        </td>
+                    </tr>
+        </table>
+    </form>
+</body>
