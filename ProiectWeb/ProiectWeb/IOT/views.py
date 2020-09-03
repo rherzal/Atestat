@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from .models import Button, Slider
-
+import requests
 
 def index(request):
     template = loader.get_template("IOT/index.html")
@@ -26,7 +26,6 @@ def save(request):
                 button.value = not button.value
                 button.save()
                 print (str(button.pk) + str(button.value))
+                if button.mapped_io == "led" :
+                    requests.get('http://192.168.1.7', data = {'led' : str(not button.value)})
                 return HttpResponseRedirect('/iot')
-        
-    
-    

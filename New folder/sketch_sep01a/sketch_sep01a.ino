@@ -1,7 +1,7 @@
 #include "ESP8266WiFi.h"
 #include <ESP8266WebServer.h>
-const char* ssid = "DIGI-yKnG"; //Enter SSID
-const char* password = "Gdn5nd6R"; //Enter Password
+const char* ssid = "DIGI_Adi"; //Enter SSID
+const char* password = "1234543210"; //Enter Password
 
 ESP8266WebServer server(80);
 
@@ -10,6 +10,7 @@ void handleNotFound();
 
 void setup(void)
 { 
+  pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(115200);
   // Connect to WiFi
   WiFi.begin(ssid, password);
@@ -23,18 +24,29 @@ void setup(void)
   Serial.println("WiFi connection Successful");
   Serial.print("The IP Address of ESP8266 Module is: ");
   Serial.print(WiFi.localIP());// Print the IP address
-  server.on("/", handleRoot); 
+  server.on("/",HTTP_GET, handleRoot); 
   server.onNotFound(handleNotFound);   
   server.begin();                           // Actually start the server
   Serial.println("HTTP server started");
 }
 
+bool state = false;
+
 void loop(void){
-  server.handleClient();                    // Listen for HTTP requests from clients
+  server.handleClient();   
+  if(server.arg("led") == "True")
+    digitalWrite(LED_BUILTIN, HIGH);
+  if(server.arg("led") == "False")
+    digitalWrite(LED_BUILTIN, LOW);
+  
+  // Listen for HTTP requests from clients
 }
 
 void handleRoot() {
-  server.send(200, "text/plain", "Hello world!");   // Send HTTP status 200 (Ok) and send some text to the browser/client
+  server.send(200, "text/plain", "Hello world!");
+  
+  
+  // Send HTTP status 200 (Ok) and send some text to the browser/client
 }
 
 void handleNotFound(){

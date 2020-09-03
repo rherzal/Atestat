@@ -12,7 +12,7 @@
                 {%for button in Buttons%}
                     <tr>
                         <td class="{%if button.value == True%} table-primary {%else%} table-danger {%endif%}">
-                            <input type = "submit" class="btn btn-primary btn-lg" value = {{button.value}} name= "D{{button.id}}" style="width: 25%;">
+                            <h2>{{button.mapped_io}}: </h2><input type = "submit" class="btn btn-primary btn-lg" value = {{button.value}} name= "D{{button.id}}" style="width: 25%;">
                         </td>
                     </tr>
                 {%endfor%}
