@@ -5,7 +5,8 @@ const char* password = "1234543210"; //Enter Password
 
 ESP8266WebServer server(80);
 
-void handleRoot();              // function prototypes for HTTP handlers
+void handleRoot();  
+void handleLed();// function prototypes for HTTP handlers
 void handleNotFound();
 
 void setup(void)
@@ -24,7 +25,7 @@ void setup(void)
   Serial.println("WiFi connection Successful");
   Serial.print("The IP Address of ESP8266 Module is: ");
   Serial.print(WiFi.localIP());// Print the IP address
-  server.on("/",HTTP_GET, handleRoot); 
+  server.on("/",HTTP_GET, handleLed); 
   server.onNotFound(handleNotFound);   
   server.begin();                           // Actually start the server
   Serial.println("HTTP server started");
@@ -34,18 +35,17 @@ bool state = false;
 
 void loop(void){
   server.handleClient();   
-  if(server.arg("led") == "True")
-    digitalWrite(LED_BUILTIN, HIGH);
-  if(server.arg("led") == "False")
-    digitalWrite(LED_BUILTIN, LOW);
+  
   
   // Listen for HTTP requests from clients
 }
 
-void handleRoot() {
-  server.send(200, "text/plain", "Hello world!");
-  
-  
+void handleLed() {
+  if(server.arg("led") == "True")
+    digitalWrite(LED_BUILTIN, LOW);
+  if(server.arg("led") == "False")
+    digitalWrite(LED_BUILTIN, HIGH);
+  server.send(200, "text/plain", "200: found");
   // Send HTTP status 200 (Ok) and send some text to the browser/client
 }
 

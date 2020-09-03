@@ -27,5 +27,6 @@ def save(request):
                 button.save()
                 print (str(button.pk) + str(button.value))
                 if button.mapped_io == "led" :
-                    requests.get('http://192.168.1.7', data = {'led' : str(not button.value)})
+                    r = requests.get('http://192.168.1.7:80', params = {'led' : str(button.value)})
+                    print(r)
                 return HttpResponseRedirect('/iot')
