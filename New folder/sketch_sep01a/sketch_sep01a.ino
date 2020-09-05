@@ -1,8 +1,11 @@
 #include "ESP8266WiFi.h"
 #include <ESP8266WebServer.h>
-const char* ssid = "DIGI_Adi"; //Enter SSID
-const char* password = "1234543210"; //Enter Password
+/*const char* ssid = "DIGI_yKnG"; //Enter SSID
+const char* password = "Gdn5nd6R"; //Enter Password
+*/
 
+char * ssid;
+char * password;
 ESP8266WebServer server(80);
 
 void handleRoot();  
@@ -14,6 +17,15 @@ void setup(void)
   pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(115200);
   // Connect to WiFi
+  ssid = Serial.read();
+  Serial.print("\nok\n");
+  Serial.print(ssid);
+  Serial.print("\nok\n");
+  password = Serial.read();
+  Serial.print("\nok\n");
+  Serial.print(password);
+  Serial.print("\nok\n");
+  
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) 
   {
